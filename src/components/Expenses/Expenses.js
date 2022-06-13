@@ -10,10 +10,26 @@ const Expenses = () => {
     (tr) => tr.type === "Expense"
   );
 
+  const expenseDivision = globalState.expenseCategories.map((category) => {
+    return {
+      name: category.category,
+      precentage: (category.totalAmount * 100) / globalState.totalExpense,
+    };
+  });
+
   return (
     <div className={classes.card}>
       <h3>Expense</h3>
       <span>{globalState.totalExpense}$</span>
+      <h6>Division:</h6>
+      {expenseDivision.map((category) => {
+        return (
+          <div key={category.name}>
+            <span>{category.name}: </span>
+            <span>{category.precentage.toFixed(2)}%</span>
+          </div>
+        );
+      })}
 
       {expenses.map((expense, index) => {
         return (
@@ -34,8 +50,8 @@ const ExpenseItem = (props) => {
   const dispatch = useStore()[1];
 
   const removeExpenseHandler = () => {
-    dispatch('removeTransaction', props.id);
-  }
+    dispatch("removeTransaction", props.id);
+  };
 
   return (
     <section className={classes["expense-item"]}>

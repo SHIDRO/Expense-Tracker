@@ -7,17 +7,33 @@ const Incomes = () => {
   const globalState = useStore()[0];
 
   const incomes = globalState.transactions.filter((tr) => tr.type === "Income");
+  const incomeDivision = globalState.incomeCategories.map((category) => {
+    return {
+      name: category.category,
+      precentage: (category.totalAmount * 100) / globalState.totalIncome,
+    };
+  });
+
+  console.log(incomeDivision);
 
   return (
     <div className={classes.card}>
       <h3>Income</h3>
       <span>{globalState.totalIncome}$</span>
       <h6>Division:</h6>
+      {incomeDivision.map((category) => {
+        return (
+          <div key={category.name}>
+            <span>{category.name}: </span>
+            <span>{category.precentage.toFixed(2)}%</span>
+          </div>
+        );
+      })}
 
       {incomes.map((income, index) => {
         return (
           <IncomeItem
-          key={income.id}
+            key={income.id}
             date={income.date}
             id={income.id}
             category={income.category}
