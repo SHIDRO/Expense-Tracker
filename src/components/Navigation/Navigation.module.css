@@ -1,0 +1,13 @@
+.links a{
+    text-decoration: none;
+    color: rgb(115, 113, 113);
+}
+
+.links li{
+    display: inline-block;
+    margin: 1rem;
+}
+
+.links .link-active{
+    color: rgb(255, 255, 255);
+}
